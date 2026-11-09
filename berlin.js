@@ -315,7 +315,7 @@
     }
     // A blue square with a white U, nothing more
     w.depth = 2;
-    const ug = w.addGroup(17.9, 40);
+    const ug = w.addGroup(17.9, 33.9);
     w.rect(211, 65, 1, 16, M.STEEL_DK);
     w.rect(205, 52, 13, 13, M.BOARD_B);
     w.lightRect(205, 52, 13, 13, N.B_BLUE, ug);
@@ -540,6 +540,9 @@
     w.rect(85, 106, 1, 4, M.STEEL_DK);
     bike(w, 56, FEET - 1, M.BOARD_B);
 
+    // Abutment where the road climbs to the bridge
+    for (let y = 92; y < LINE; y++) w.rect(108, y, 3, 1, y % 3 ? M.BR_D : M.BR_DD);
+
     // Döner stand against the firewall: kept shut at night, opened in draw
     w.rect(88, 97, 20, 13, M.STAND);
     w.rect(88, 107, 20, 3, M.STAND_D);
@@ -552,9 +555,6 @@
       w.px(87 + i, 97, i % 4 < 2 ? M.BOARD_G : M.BOARD_W);
       w.px(87 + i, 98, i % 4 < 2 ? M.BOARD_G : M.BOARD_W);
     }
-
-    // Abutment where the road climbs to the bridge
-    for (let y = 92; y < LINE; y++) w.rect(108, y, 3, 1, y % 3 ? M.BR_D : M.BR_DD);
 
     // ---- Ampelmann on his pole, big enough to read from over the river
     w.rect(51, 86, 1, 24, M.AMPEL_P);
@@ -701,7 +701,7 @@
     w.hsign(215, 18, 45, 9, 'CURRYWURST', { n: N.YELLOW, g: w.addGroup(18.3, 28.3), off: M.TUBE });
     w.rect(215, 27, 45, 1, M.STEEL_DK);
 
-    w.hsign(219, 32, 39, 7, 'SPäTI 24H', { n: N.CYAN, g: w.addGroup(18.5, 40) });
+    w.hsign(219, 32, 39, 7, 'SPäTI 24H', { n: N.CYAN, g: w.addGroup(18.5, 34.5) });
 
     // Walking man, frame for the neon that animates in draw
     w.rect(219, 41, 12, 28, M.BOARD_K);
@@ -718,7 +718,7 @@
     // Ground floor: döner shop, spit in the window
     w.rect(219, 92, 18, 16, M.WOOD_DK);
     w.rect(220, 93, 16, 11, M.SHOPG);
-    w.lightRect(220, 93, 16, 11, N.WARM, w.addGroup(11, 29.4, 'room'));
+    w.lightRect(220, 93, 16, 11, N.WARM, w.addGroup(12, 40, 'room'));
     w.rect(220, 104, 16, 1, M.STEEL_LT);
     // Cinema, the marquee above the heads of the queue
     w.rect(237, 92, 22, 16, M.KINO);
@@ -802,7 +802,7 @@
     w.rect(302, 58, 58, 52, M.SHED);
     w.rect(302, 58, 58, 1, M.SHED_D);
     for (let i = 0; i < 58; i += 4) w.rect(302 + i, 59, 1, 49, M.SHED_D);
-    w.hsign(303, 62, 20, 7, 'BIER', { n: N.GREEN, g: w.addGroup(18.8, 28.1) });
+    w.hsign(302, 62, 17, 7, 'BIER', { n: N.GREEN, g: w.addGroup(18.8, 28.1) });
     for (const wx of [305, 316, 330, 344]) {
       win(w, r, wx, 73, 7, 10, M.SHED_D, '');
       win(w, r, wx, 90, 7, 8, M.SHED_D, '');
@@ -1561,7 +1561,8 @@
 
   CitySwitch.define('berlin-switch', {
     city: 'Berlin',
-    label: 'Dark mode',
+    label: 'Berlin day and night',
+    checks: { signs: { 'SPÄTI': 'the Ampelmann pole stands at the shop corner over the blank last column of the board, clear of the letters' } },
     tube: ['#b6ff1a', '#8a3dff'],
     body: ['#e4e4dc', '#0c0f0d'],
     glass: 'mist',
@@ -1784,7 +1785,7 @@
       w.crossG = w.addGroup(0, 99);
       w.offenG = w.addGroup(0, 99);
       w.spatiLight = w.addGroup(0, 99, 'room');
-      w.spatiSign = w.addGroup(17.6, 40, 'neon', { soft: true });
+      w.spatiSign = w.addGroup(17.6, 33.6, 'neon', { soft: true });
       w.standSign = w.addGroup(17.8, 20.6);
       w.kinoG = w.addGroup(18, 28.6);
       w.handG = w.addGroup(18.6, 28.8);
